@@ -68,11 +68,15 @@ v = seq(1, 10)
 
 (y <- seq(1, 20, by = 2))
 (y <- seq(0, 20, by = 2))
+
+# R is one indexed
 y[1]
 y[11]
 
 # R IS NOT ZERO INDEXED
 y[0]
+
+
 ?sd()
 
 # press  Alt + Shift + K and see what happens
@@ -84,10 +88,6 @@ library(tidyverse)
 ?stats::filter()
 
 ?filter() 
-
-
-
-
 
 # show flights data
 flights # data type is a tibble ---more on this later
@@ -110,10 +110,11 @@ View(iris)
 
 # https://statsandr.com/blog/data-types-in-r/
 # c is used in R to concatenate 
-num_data <- c(3, 7, 2)# numeric series without decimals
+num_data <- c(3, 7, 2) # numeric series without decimals
 # Combine Values Into A Vector Or List
 # Try run it....https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/c
 
+num_data[1]
 
 class(num_data) # identifies class of data
 
@@ -126,13 +127,22 @@ str(num_data_dec)
 
 int_nums = as.integer(num_data_dec)# convert data types
 
+class
+typeof(int_nums)
+
+int_nums <- as.integer(c(3,7,2))
+typeof(int_nums)
+
+dlb_data <- as.double(c(3,7,2))
+typeof(dlb_data)
+
 ###################################
 # Chars
 #################################
 char <- "some text" # strings
 char
 class(char)
-
+typeof(char)
 numAsChar= as.character(int_nums)
 
 # case and space sensitivity 
@@ -161,7 +171,7 @@ levels(gender)
 fruit = factor(c("apple", "pear", "banana", "apple", "grape"))
 levels(fruit)
 
-#By default, the levels are sorted alphabetically
+# By default, the levels are sorted alphabetically
 text <- c("test1", "test2", "test1", "test1") # create a character vector
 class(text) # to know the class
 
@@ -179,6 +189,7 @@ value2 <- 9
 (greater <- value1 > value2)
 
 class(greater)
+typeof(greater)
 
 # is value1 less than or equal to value2?
 less <- value1 <= value2
@@ -211,6 +222,13 @@ m1 <- matrix(C<-(1:10),nrow=5, ncol=6)
 m1
 a_m1 <- apply(m1, 2, sum)
 a_m1
+typeof(a_m1)
+class(a_m1)
+
+# error because it only apply's to vectors
+l_m1 = lapply(m1, 2, sum)
+
+l_m1 <- lapply(m1, sum)
 
 ######################################
 # List Apply
@@ -235,6 +253,7 @@ str(movies_lower)
 
 # We can measure the minimum speed and stopping distances of cars from the cars dataset.
 dt <- cars
+View(dt)
 lmn_cars <- lapply(dt, min)
 smn_cars <- sapply(dt, min)
 lmn_cars
@@ -263,7 +282,10 @@ dat <- iris # load the iris dataset and renamed it dat
 
 View(iris)
 
-head(dat,25) # first 6 observations
+# first 6 observations
+head(dat)
+# first 25 rows
+head(dat,25)
 str(dat) # structure of dataset
 
 levels(iris$Species) # note $ refers to col
